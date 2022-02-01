@@ -102,7 +102,6 @@ function Character() {
   const character = families
     .find(({ id }) => id === familyID)
     .characters.find(({ id }) => id === characterID);
-  console.log(characterID);
 
   const { title, fullName, imageUrl } = character;
   return (
