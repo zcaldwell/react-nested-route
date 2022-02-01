@@ -7,144 +7,102 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
-const movieCategories = [
+const families = [
   {
-    category: 'Anime',
-    id: 'anime',
-    description: 'anime movies',
-    movies: [
+    family: 'House Targaryen',
+    id: 'targaryen',
+    characters: [
       {
-        title: 'Demon Slayer: Mugen Train',
-        year: '2020',
-        id: '1',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg',
+        id: 0,
+        firstName: 'mock',
+        lastName: 'Targaryen',
+        fullName: 'Daenerys Targaryen',
+        title: 'Mother of Dragons',
+        image: 'daenerys.jpg',
+        imageUrl: 'https://thronesapi.com/assets/images/daenerys.jpg',
       },
       {
-        title: 'Jujutsu Kaisen 0: The Movie',
-        year: '2021',
-        id: '2',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BYzFmMjAwMDYtNzM0Zi00NjY2LWFjMjYtMGQ1OTRiZjk5YjJkXkEyXkFqcGdeQXVyMTMwODY5NDc2._V1_SX300.jpg',
+        id: 26,
+        firstName: 'Viserys',
+        lastName: 'Targaryan',
+        fullName: 'Viserys Targaryn',
+        title: 'King Viserys III',
+        family: 'Targaryan',
+        image: 'viserys-targaryan.jpg',
+        imageUrl: 'https://thronesapi.com/assets/images/viserys-targaryan.jpg',
       },
     ],
   },
   {
-    category: 'Horror',
-    id: 'horror',
-    description: 'horror movies',
-    movies: [
+    family: 'House Stark',
+    id: 'stark',
+    characters: [
       {
-        title: 'Get Out',
-        year: '2017',
-        id: '3',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BMjUxMDQwNjcyNl5BMl5BanBnXkFtZTgwNzcwMzc0MTI@._V1_SX300.jpg',
+        id: 3,
+        firstName: 'Arya',
+        lastName: 'Stark',
+        fullName: 'Arya Stark',
+        title: 'No One',
+        family: 'House Stark',
+        image: 'arya-stark.jpg',
+        imageUrl: 'https://thronesapi.com/assets/images/arya-stark.jpg',
       },
       {
-        title: "Child's Play 2",
-        year: '1990',
-        id: '4',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BM2Y0NGNiNGItYzYzOS00NDk0LTkzNWUtMGZjMjc1NWM4MzE3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+        id: 4,
+        firstName: 'Sansa',
+        lastName: 'Stark',
+        fullName: 'Sansa Stark',
+        title: 'Lady of Winterfell',
+        family: 'House Stark',
+        image: 'sansa-stark.jpeg',
+        imageUrl: 'https://thronesapi.com/assets/images/sansa-stark.jpeg',
+      },
+      {
+        id: 5,
+        firstName: 'Brandon',
+        lastName: 'Stark',
+        fullName: 'Brandon Stark',
+        title: 'Lord of Winterfell',
+        family: 'House Stark',
+        image: 'bran-stark.jpg',
+        imageUrl: 'https://thronesapi.com/assets/images/bran-stark.jpg',
       },
     ],
   },
   {
-    category: 'Action',
-    id: 'action',
-    description: 'action movies',
-    movies: [
+    family: 'House Baratheon',
+    id: 'baratheon',
+    characters: [
       {
-        title: 'Last Action Hero',
-        year: '1993',
-        id: '5',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BNjdhOGY1OTktYWJkZC00OGY5LWJhY2QtZmQzZDA2MzY5MmNmXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg',
+        id: 7,
+        firstName: 'Robert',
+        lastName: 'Baratheon',
+        fullName: 'Robert Baratheon',
+        title: 'Lord of the Seven Kingdoms',
+        family: 'House Baratheon',
+        image: 'robert-baratheon.jpeg',
+        imageUrl: 'https://thronesapi.com/assets/images/robert-baratheon.jpeg',
       },
       {
-        title: 'Looney Tunes: Back in Action',
-        year: '2003',
-        id: '6',
-        poster:
-          'https://m.media-amazon.com/images/M/MV5BMTkxNDk5MDQ2MF5BMl5BanBnXkFtZTYwMTA0Nzc2._V1_SX300.jpg',
+        id: 13,
+        firstName: 'Joffrey',
+        lastName: 'Baratheon',
+        fullName: 'Joffrey Baratheon',
+        title: 'Lord of the Seven Kingdoms, Protector of the Realm',
+        family: 'House Lanister',
+        image: 'joffrey.jpg',
+        imageUrl: 'https://thronesapi.com/assets/images/joffrey.jpg',
       },
     ],
   },
 ];
 
-function Movie() {
-  const { categoryId, movieId } = useParams();
-  const movie = movieCategories
-    .find(({ id }) => id === categoryId)
-    .movies.find(({ id }) => id === movieId);
-
-  const { title, poster } = movie;
-  return (
-    <div>
-      <h3>{title}</h3>
-      <img src={poster} alt={title} height={300} width={300} />
-    </div>
-  );
-}
-
-function MovieList() {
-  const { categoryId } = useParams();
+function Families() {
   const { url, path } = useRouteMatch();
-  console.log('url in MovieList', url); // 💡 Use url for nested links
-  console.log('path in MovieList', path); // 💡 Use path for nested routes
-
-  const category = movieCategories.find(({ id }) => id === categoryId);
-  console.log('category', category);
   return (
     <div>
-      <h2>{category.category}</h2>
-      <p>{category.description}</p>
-      <ul>
-        {category.movies.map((movie) => {
-          return (
-            <li key={movie.id}>
-              <Link to={`${url}/${movie.id}`}>{movie.title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-
-      <hr />
-
-      <Route path={`${path}/:movieId`}>
-        <Movie />
-      </Route>
-    </div>
-  );
-}
-
-function CategoryList() {
-  // Custom Hook we get from react router dom for nested routing
-  const { url, path } = useRouteMatch();
-  console.log('url in CategoryList', url); // 💡 Use url for nested links
-  console.log('path in CategoryList', path); // 💡 Use path for nested routes
-
-  return (
-    <div>
-      <h1>Categories</h1>
-      <ul>
-        {movieCategories.map(({ category, id }) => {
-          return (
-            <li key={id}>
-              {/* A nested link that's using the `url` from `useRouteMatch()`  */}
-              <Link to={`${url}/${id}`}>{category}</Link>
-            </li>
-          );
-        })}
-      </ul>
-
-      <hr />
-
-      {/* The URL we want to match: /category/:categoryId */}
-      <Route path={`${path}/:categoryId`}>
-        <MovieList />
-      </Route>
+      <h1>Families</h1>
+      <ul>{}</ul>
     </div>
   );
 }
@@ -156,21 +114,20 @@ function Home() {
 export default function App() {
   return (
     <Router>
-      <div style={{ width: 1000, margin: '0 auto' }}>
+      <div>
         <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/categories">Categories</Link>
+            <Link to="/families">Families</Link>
           </li>
         </ul>
-        <hr />
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/categories">
-          <CategoryList />
+        <Route path="/families">
+          <Families />
         </Route>
       </div>
     </Router>
