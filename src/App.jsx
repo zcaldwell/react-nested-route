@@ -13,7 +13,7 @@ const families = [
     id: 'targaryen',
     characters: [
       {
-        id: 0,
+        id: '0',
         firstName: 'Daenerys',
         lastName: 'Targaryen',
         fullName: 'Daenerys Targaryen',
@@ -22,7 +22,7 @@ const families = [
         imageUrl: 'https://thronesapi.com/assets/images/daenerys.jpg',
       },
       {
-        id: 26,
+        id: '26',
         firstName: 'Viserys',
         lastName: 'Targaryan',
         fullName: 'Viserys Targaryn',
@@ -38,7 +38,7 @@ const families = [
     id: 'stark',
     characters: [
       {
-        id: 3,
+        id: '3',
         firstName: 'Arya',
         lastName: 'Stark',
         fullName: 'Arya Stark',
@@ -48,7 +48,7 @@ const families = [
         imageUrl: 'https://thronesapi.com/assets/images/arya-stark.jpg',
       },
       {
-        id: 4,
+        id: '4',
         firstName: 'Sansa',
         lastName: 'Stark',
         fullName: 'Sansa Stark',
@@ -58,7 +58,7 @@ const families = [
         imageUrl: 'https://thronesapi.com/assets/images/sansa-stark.jpeg',
       },
       {
-        id: 5,
+        id: '5',
         firstName: 'Brandon',
         lastName: 'Stark',
         fullName: 'Brandon Stark',
@@ -74,7 +74,7 @@ const families = [
     id: 'baratheon',
     characters: [
       {
-        id: 7,
+        id: '7',
         firstName: 'Robert',
         lastName: 'Baratheon',
         fullName: 'Robert Baratheon',
@@ -84,7 +84,7 @@ const families = [
         imageUrl: 'https://thronesapi.com/assets/images/robert-baratheon.jpeg',
       },
       {
-        id: 13,
+        id: '13',
         firstName: 'Joffrey',
         lastName: 'Baratheon',
         fullName: 'Joffrey Baratheon',
@@ -97,24 +97,43 @@ const families = [
   },
 ];
 
+function Character() {
+  const { familyID, characterID } = useParams();
+  const character = families
+    .find(({ id }) => id === familyID)
+    .characters.find(({ id }) => id === characterID);
+  console.log(characterID);
+
+  const { title, fullName, imageUrl } = character;
+  return (
+    <div>
+      <h1>{fullName}</h1>
+      <h2>{title}</h2>
+      <img src={imageUrl} />
+    </div>
+  );
+}
+
 function CharacterList() {
   const { familyID } = useParams();
   const { url, path } = useRouteMatch();
 
   const family = families.find(({ id }) => id === familyID);
-  console.log(family);
   return (
     <div>
       <h1>{family.family}</h1>
       <ul>
-        {family.characters.map(({ fullName, id }) => {
+        {family.characters.map((character) => {
           return (
-            <li key={id}>
-              <Link t0={`${url}/${id}`}>{fullName}</Link>
+            <li key={character.id}>
+              <Link to={`${url}/${character.id}`}>{character.fullName}</Link>
             </li>
           );
         })}
       </ul>
+      <Route path={`${path}/:characterID`}>
+        <Character />
+      </Route>
     </div>
   );
 }
