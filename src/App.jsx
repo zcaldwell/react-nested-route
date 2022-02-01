@@ -97,6 +97,28 @@ const families = [
   },
 ];
 
+function CharacterList() {
+  const { familyID } = useParams();
+  const { url, path } = useRouteMatch();
+
+  const family = families.find(({ id }) => id === familyID);
+  console.log(family);
+  return (
+    <div>
+      <h1>{family.family}</h1>
+      <ul>
+        {family.characters.map(({ fullName, id }) => {
+          return (
+            <li key={id}>
+              <Link t0={`${url}/${id}`}>{fullName}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function Families() {
   const { url, path } = useRouteMatch();
   return (
@@ -111,6 +133,9 @@ function Families() {
           );
         })}
       </ul>
+      <Route path={`${path}/:familyID`}>
+        <CharacterList />
+      </Route>
     </div>
   );
 }
