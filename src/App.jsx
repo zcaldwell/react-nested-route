@@ -14,7 +14,7 @@ const families = [
     characters: [
       {
         id: 0,
-        firstName: 'mock',
+        firstName: 'Daenerys',
         lastName: 'Targaryen',
         fullName: 'Daenerys Targaryen',
         title: 'Mother of Dragons',
@@ -102,7 +102,15 @@ function Families() {
   return (
     <div>
       <h1>Families</h1>
-      <ul>{}</ul>
+      <ul>
+        {families.map(({ family, id }) => {
+          return (
+            <li key={id}>
+              <Link to={`${url}/${id}`}>{family}</Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
